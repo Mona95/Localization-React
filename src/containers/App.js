@@ -1,9 +1,14 @@
 import React from "react";
-import useStyles from "./App.style.js";
+import Footer from "../components/Footer/index.js";
+import Navbar from "../components/Navbar/index.js";
 
 function App() {
-  let classes = useStyles();
-  return <div>Scorp-SampleCase</div>;
+  return (
+    <>
+      <Navbar />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
