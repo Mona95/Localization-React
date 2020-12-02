@@ -1,20 +1,27 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import TranslateIcon from "@material-ui/icons/Translate";
 import PersonIcon from "@material-ui/icons/Person";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Link } from "react-router-dom";
+import styles from "./DesNavbar.style";
 
 class DesktopNavbar extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <>
-        <Button href="#" color="inherit">
-          Home
-        </Button>
-        <Button href="#" style={{ marginLeft: 30 }} color="inherit">
-          Contact Us
-        </Button>
+        <Link to="" className={classes.linkStyle}>
+          <Button color="inherit">Home</Button>
+        </Link>
+        <Link to="/contactus" className={classes.linkStyle}>
+          <Button style={{ marginLeft: 30 }} color="inherit">
+            Contact Us
+          </Button>
+        </Link>
+
         <Button
           color="inherit"
           style={{ marginLeft: 15 }}
@@ -70,4 +77,4 @@ class DesktopNavbar extends Component {
   }
 }
 
-export default DesktopNavbar;
+export default withStyles(styles)(DesktopNavbar);

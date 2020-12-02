@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import NestedMenuItem from "material-ui-nested-menu-item";
+import { Link } from "react-router-dom";
+import styles from "./MobNavbar.style";
 
 class MobileNavbar extends Component {
   render() {
+    const { classes } = this.props;
     const isMobileMenuOpen = Boolean(this.props.mobileMoreAnchorEl);
     const mobileMenu = (
       <Menu
@@ -17,12 +21,14 @@ class MobileNavbar extends Component {
         name="mobileMoreAnchorEl"
         onClose={this.props.handleClose}
       >
-        <MenuItem onClick={this.props.handleClose}>
-          <p>HOME</p>
-        </MenuItem>
-        <MenuItem onClick={this.props.handleClose}>
-          <p>CONTACT US</p>
-        </MenuItem>
+        <Link to="" className={classes.linkStyle}>
+          <MenuItem onClick={this.props.handleClose}>HOME</MenuItem>
+        </Link>
+
+        <Link to="/contactus" className={classes.linkStyle}>
+          <MenuItem onClick={this.props.handleClose}>CONTACT US</MenuItem>
+        </Link>
+
         <NestedMenuItem
           label="EN"
           parentMenuOpen={!!isMobileMenuOpen}
@@ -45,4 +51,4 @@ class MobileNavbar extends Component {
   }
 }
 
-export default MobileNavbar;
+export default withStyles(styles)(MobileNavbar);
