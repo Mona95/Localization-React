@@ -1,9 +1,12 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   contentWrapper: {
-    padding: 20,
+    padding: "4%",
     textAlign: "center",
+  },
+  title: {
+    fontWeight: "bold",
   },
 }));
 
