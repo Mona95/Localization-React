@@ -7,6 +7,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
 import styles from "./DesNavbar.style";
+import LoginModal from "../../Modals/Login";
 
 class DesktopNavbar extends Component {
   render() {
@@ -43,14 +44,7 @@ class DesktopNavbar extends Component {
           <MenuItem onClick={this.props.handleClose}>EN</MenuItem>
           <MenuItem onClick={this.props.handleClose}>TR</MenuItem>
         </Menu>
-        <Button
-          size="small"
-          color="inherit"
-          style={{ marginLeft: 15 }}
-          variant="outlined"
-        >
-          LOGIN
-        </Button>
+        <LoginModal />
         <Button
           color="inherit"
           name="userBtnAnchorEl"
