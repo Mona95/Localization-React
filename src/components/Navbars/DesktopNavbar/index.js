@@ -8,17 +8,35 @@ import { Link } from "react-router-dom";
 import styles from "./DesNavbar.style";
 import LoginModal from "../../Modals/Login";
 import LangSelector from "../../LangSelector";
+import { connect } from "react-redux";
+import { updatePageTitle } from "../../../actions/actions";
 
 class DesktopNavbar extends Component {
+  handleLinkClick = (event) => {
+    this.props.updatePageTitle(event.currentTarget.name);
+  };
+
   render() {
     const { classes } = this.props;
+
     return (
       <>
         <Link to="" className={classes.linkStyle}>
-          <Button color="inherit">Home</Button>
+          <Button
+            name="Scorp-Sample Case"
+            onClick={this.handleLinkClick}
+            color="inherit"
+          >
+            Home
+          </Button>
         </Link>
         <Link to="/contactus" className={classes.linkStyle}>
-          <Button style={{ marginLeft: 30 }} color="inherit">
+          <Button
+            name="Contact Us"
+            onClick={this.handleLinkClick}
+            style={{ marginLeft: 30 }}
+            color="inherit"
+          >
             Contact Us
           </Button>
         </Link>
@@ -50,4 +68,11 @@ class DesktopNavbar extends Component {
   }
 }
 
-export default withStyles(styles)(DesktopNavbar);
+const mapDispatchToProps = (dispatch) => ({
+  updatePageTitle: (title) => dispatch(updatePageTitle(title)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(DesktopNavbar));

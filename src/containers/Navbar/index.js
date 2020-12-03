@@ -9,6 +9,7 @@ import RedeemIcon from "@material-ui/icons/Redeem";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import MobileNavbar from "../../components/Navbars/MobileNavbar";
 import DesktopNavbar from "../../components/Navbars/DesktopNavbar";
+import { connect } from "react-redux";
 
 class Navbar extends Component {
   state = {
@@ -45,7 +46,7 @@ class Navbar extends Component {
             </IconButton>
 
             <Typography variant="h6" className={classes.title}>
-              Scorp-Sample Case
+              {this.props.pageTitle}
             </Typography>
 
             <div className={classes.sectionDesktop}>
@@ -81,4 +82,8 @@ class Navbar extends Component {
   }
 }
 
-export default withStyles(styles)(Navbar);
+const mapStateToProps = (state) => ({
+  pageTitle: state.pageTitle,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Navbar));
