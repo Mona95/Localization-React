@@ -32,7 +32,7 @@ class DesktopNavbar extends Component {
         </Link>
         <Link to="/contactus" className={classes.linkStyle}>
           <Button
-            name="Contact Us"
+            name="CONTACT US"
             onClick={this.handleLinkClick}
             style={{ marginLeft: 30 }}
             color="inherit"
@@ -41,18 +41,20 @@ class DesktopNavbar extends Component {
           </Button>
         </Link>
         <LangSelector />
-        <LoginModal />
-        <Button
-          color="inherit"
-          name="userBtnAnchorEl"
-          style={{ marginLeft: 15 }}
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={this.props.handleClick}
-          startIcon={<PersonIcon />}
-        >
-          User name
-        </Button>
+        {!this.props.userInfo && <LoginModal />}
+        {this.props.userInfo && (
+          <Button
+            color="inherit"
+            name="userBtnAnchorEl"
+            style={{ marginLeft: 15 }}
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={this.props.handleClick}
+            startIcon={<PersonIcon />}
+          >
+            {this.props.userInfo && this.props.userInfo.name}
+          </Button>
+        )}
         <Menu
           id="simple-menu"
           anchorEl={this.props.userBtnAnchorEl}
@@ -60,8 +62,10 @@ class DesktopNavbar extends Component {
           open={Boolean(this.props.userBtnAnchorEl)}
           onClose={this.props.handleClose}
         >
-          <MenuItem onClick={this.props.handleClose}>user email</MenuItem>
-          <MenuItem onClick={this.props.handleClose}>Logout</MenuItem>
+          <MenuItem onClick={this.props.handleClose}>
+            {this.props.userInfo && this.props.userInfo.email}
+          </MenuItem>
+          <MenuItem onClick={this.props.handleLogout}>Logout</MenuItem>
         </Menu>
       </>
     );
@@ -72,7 +76,11 @@ const mapDispatchToProps = (dispatch) => ({
   updatePageTitle: (title) => dispatch(updatePageTitle(title)),
 });
 
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(DesktopNavbar));

@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { validateNumberFld, validateEmailFld } from "../../../../utils/utils";
 import ErrorIcon from "@material-ui/icons/Error";
+import { connect } from "react-redux";
 
 const country_list = [
   { id: "TR", name: "Turkey" },
@@ -20,8 +21,8 @@ const country_list = [
 
 class ContactForm extends Component {
   state = {
-    name: "",
-    email: "",
+    name: this.props.userInfo ? this.props.userInfo.name : "",
+    email: this.props.userInfo ? this.props.userInfo.email : "",
     phonenumber: "",
     country_code: "",
     text: "",
@@ -66,22 +67,25 @@ class ContactForm extends Component {
     return (
       <form className={classes.form} name="contactus-form" autoComplete="on">
         <Input
+          readOnly={Boolean(this.props.userInfo)}
           name="name"
           placeholder="Name"
           onChange={this.handleItemChange}
+          value={this.state.name}
         />
         <Input
+          readOnly={Boolean(this.props.userInfo)}
           type="email"
           placeholder="Email"
           onChange={this.handleItemChange}
           name="email"
+          value={this.state.email}
         />
         <br />
         <Input
           name="phonenumber"
           placeholder="Phone Number"
           onChange={this.handleItemChange}
-          //type="number"
         />
         <Autocomplete
           name="country_code"
@@ -128,4 +132,8 @@ class ContactForm extends Component {
   }
 }
 
-export default withStyles(styles)(ContactForm);
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(ContactForm));

@@ -9,6 +9,8 @@ import { Input } from "@material-ui/core";
 import styles from "./LoginModal.style";
 import { validateEmailFld, validateEmptyField } from "../../../utils/utils";
 import LangSelector from "../../LangSelector";
+import { connect } from "react-redux";
+import { updateUserInfo } from "../../../actions/actions";
 
 class Login extends Component {
   state = {
@@ -28,6 +30,12 @@ class Login extends Component {
       this.setState({ emptyFldError: true });
     } else {
       this.setState({ modalOpen: false });
+      let userInfoData = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+      };
+      this.props.updateUserInfo(userInfoData);
     }
   };
 
@@ -119,4 +127,8 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  updateUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
+});
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Login));

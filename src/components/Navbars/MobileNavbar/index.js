@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { Link } from "react-router-dom";
 import styles from "./MobNavbar.style";
+import { connect } from "react-redux";
 
 class MobileNavbar extends Component {
   render() {
@@ -23,11 +24,11 @@ class MobileNavbar extends Component {
           onClose={this.props.handleClose}
         >
           <Link to="" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.handleClose}>HOME</MenuItem>
+            <MenuItem onClick={this.props.updateTitle}>HOME</MenuItem>
           </Link>
 
           <Link to="/contactus" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.handleClose}>CONTACT US</MenuItem>
+            <MenuItem onClick={this.props.updateTitle}>CONTACT US</MenuItem>
           </Link>
 
           <NestedMenuItem
@@ -38,10 +39,17 @@ class MobileNavbar extends Component {
             <MenuItem>EN</MenuItem>
             <MenuItem>TR</MenuItem>
           </NestedMenuItem>
-          <NestedMenuItem label="User name" parentMenuOpen={!!isMobileMenuOpen}>
-            <MenuItem>user email</MenuItem>
-            <MenuItem>Log out</MenuItem>
-          </NestedMenuItem>
+          {this.props.userInfo && (
+            <NestedMenuItem
+              label={this.props.userInfo && this.props.userInfo.name}
+              parentMenuOpen={!!isMobileMenuOpen}
+            >
+              <MenuItem>
+                {this.props.userInfo && this.props.userInfo.email}
+              </MenuItem>
+              <MenuItem onClick={this.props.handleLogout}>Log out</MenuItem>
+            </NestedMenuItem>
+          )}
         </Menu>
       </>
     );
@@ -50,4 +58,8 @@ class MobileNavbar extends Component {
   }
 }
 
-export default withStyles(styles)(MobileNavbar);
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(MobileNavbar));

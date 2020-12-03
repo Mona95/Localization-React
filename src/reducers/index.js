@@ -2,11 +2,7 @@ import * as actionTypes from "../actions/actionsTypes";
 
 const initialState = {
   language: "en",
-  userInfo: {
-    name: "",
-    email: "",
-    password: "",
-  },
+  userInfo: null,
   pageTitle: "Scorp-Sample Case",
 };
 

@@ -10,6 +10,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import MobileNavbar from "../../components/Navbars/MobileNavbar";
 import DesktopNavbar from "../../components/Navbars/DesktopNavbar";
 import { connect } from "react-redux";
+import { updateUserInfo, updatePageTitle } from "../../actions/actions";
 
 class Navbar extends Component {
   state = {
@@ -22,11 +23,23 @@ class Navbar extends Component {
     this.setState({ [event.currentTarget.name]: event.currentTarget });
   };
 
-  handleClose = (event) => {
+  handleClose = () => {
     this.setState({
       userBtnAnchorEl: null,
       mobileMoreAnchorEl: null,
     });
+  };
+
+  handleLogout = () => {
+    this.props.updateUserInfo(null);
+    this.handleClose();
+  };
+
+  updateTitle = (event) => {
+    let newTitle = event.currentTarget.textContent;
+    newTitle === "HOME" && (newTitle = "Scorp-Sample Case");
+    this.props.updatePageTitle(newTitle);
+    this.handleClose();
   };
 
   render() {
@@ -53,6 +66,7 @@ class Navbar extends Component {
               <DesktopNavbar
                 handleClick={this.handleClick}
                 handleClose={this.handleClose}
+                handleLogout={this.handleLogout}
                 userBtnAnchorEl={this.state.userBtnAnchorEl}
               />
             </div>
@@ -76,14 +90,24 @@ class Navbar extends Component {
           mobileMenuId={mobileMenuId}
           mobileMoreAnchorEl={this.state.mobileMoreAnchorEl}
           handleClose={this.handleClose}
+          handleLogout={this.handleLogout}
+          updateTitle={this.updateTitle}
         />
       </>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  updateUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
+  updatePageTitle: (title) => dispatch(updatePageTitle(title)),
+});
+
 const mapStateToProps = (state) => ({
   pageTitle: state.pageTitle,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Navbar));
