@@ -2,6 +2,21 @@ import React, { Component } from "react";
 import styles from "./ContactForm.style.js";
 import { Button, Input } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { validateNumberFld, validateEmailFld } from "../../../../utils/utils";
+import ErrorIcon from "@material-ui/icons/Error";
+
+const country_list = [
+  { id: "TR", name: "Turkey" },
+  { id: "US", name: "United States of America" },
+  { id: "GB", name: "United Kingdom" },
+  { id: "DE", name: "Germany" },
+  { id: "SE", name: "Sweden" },
+  { id: "KE", name: "Kenya" },
+  { id: "BR", name: "Brazil" },
+  { id: "ZW", name: "Zimbabwe" },
+];
 
 class ContactForm extends Component {
   state = {
@@ -10,15 +25,40 @@ class ContactForm extends Component {
     phonenumber: "",
     country_code: "",
     text: "",
+    numberError: false,
+    emailError: false,
   };
 
   handleItemChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+    if (event.target.name === "email") {
+      validateEmailFld(event.target.value)
+        ? this.setState({ emailError: true })
+        : this.setState({ emailError: false });
+      event.target.value === "" && this.setState({ emailError: false });
+    }
+
+    if (event.target.name === "phonenumber") {
+      validateNumberFld(event.target.value)
+        ? this.setState({ numberError: true })
+        : this.setState({ numberError: false });
+    }
+  };
+
+  handleAutoCompleteChange = (event, newValue) => {
+    this.setState({ country_code: newValue ? newValue.id : "" });
   };
 
   onSend = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    let currState = { ...this.state };
+    delete currState.emailError;
+    delete currState.numberError;
+    let jsonData = JSON.stringify(currState);
+
+    if (!this.state.emailError && !this.state.numberError) {
+      console.log(jsonData);
+    }
   };
 
   render() {
@@ -41,13 +81,15 @@ class ContactForm extends Component {
           name="phonenumber"
           placeholder="Phone Number"
           onChange={this.handleItemChange}
-          type="number"
+          //type="number"
         />
-        <Input
+        <Autocomplete
           name="country_code"
-          type="search"
-          onChange={this.handleItemChange}
-          placeholder="Country"
+          options={country_list}
+          className={classes.countryFld}
+          getOptionLabel={(option) => option.name}
+          onChange={this.handleAutoCompleteChange}
+          renderInput={(params) => <TextField {...params} label="Country" />}
         />
         <br />
         <Input
@@ -67,6 +109,20 @@ class ContactForm extends Component {
         >
           SEND
         </Button>
+        <br />
+        {this.state.numberError && (
+          <span className={classes.errMsg}>
+            <ErrorIcon />
+            Please enter a valid phone number.
+          </span>
+        )}
+        <br />
+        {this.state.emailError && (
+          <span className={classes.errMsg}>
+            <ErrorIcon />
+            Please enter a valid Email.
+          </span>
+        )}
       </form>
     );
   }
