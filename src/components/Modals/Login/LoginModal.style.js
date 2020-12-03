@@ -8,6 +8,11 @@ const styles = (theme) => ({
     fontSize: 11,
     marginLeft: 10,
   },
+  langSelector: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
 });
 
 export default styles;

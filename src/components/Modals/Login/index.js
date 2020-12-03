@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { Input } from "@material-ui/core";
 import styles from "./LoginModal.style";
 import { validateEmailFld, validateEmptyField } from "../../../utils/utils";
+import LangSelector from "../../LangSelector";
 
 class Login extends Component {
   state = {
@@ -69,7 +70,12 @@ class Login extends Component {
           open={this.state.modalOpen}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Login Form</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Login
+            <div className={classes.langSelector}>
+              <LangSelector />
+            </div>
+          </DialogTitle>
           <DialogContent>
             <Input
               name="name"

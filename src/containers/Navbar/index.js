@@ -12,7 +12,6 @@ import DesktopNavbar from "../../components/Navbars/DesktopNavbar";
 
 class Navbar extends Component {
   state = {
-    locAnchorEl: null,
     userBtnAnchorEl: null,
     mobileMoreAnchorEl: null,
     isMobileMenuOpen: false,
@@ -52,7 +51,6 @@ class Navbar extends Component {
 
             <div className={classes.sectionDesktop}>
               <DesktopNavbar
-                locAnchorEl={this.state.locAnchorEl}
                 handleClick={this.handleClick}
                 handleClose={this.handleClose}
                 userBtnAnchorEl={this.state.userBtnAnchorEl}
