@@ -23,7 +23,6 @@ class Navbar extends Component {
 
   handleClose = (event) => {
     this.setState({
-      locAnchorEl: null,
       userBtnAnchorEl: null,
       mobileMoreAnchorEl: null,
     });

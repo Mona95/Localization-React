@@ -11,40 +11,39 @@ class MobileNavbar extends Component {
     const { classes } = this.props;
     const isMobileMenuOpen = Boolean(this.props.mobileMoreAnchorEl);
     const mobileMenu = (
-      <Menu
-        anchorEl={this.props.mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        id={this.props.mobileMenuId}
-        keepMounted
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={isMobileMenuOpen}
-        name="mobileMoreAnchorEl"
-        onClose={this.props.handleClose}
-      >
-        <Link to="" className={classes.linkStyle}>
-          <MenuItem onClick={this.props.handleClose}>HOME</MenuItem>
-        </Link>
-
-        <Link to="/contactus" className={classes.linkStyle}>
-          <MenuItem onClick={this.props.handleClose}>CONTACT US</MenuItem>
-        </Link>
-
-        <NestedMenuItem
-          label="EN"
-          parentMenuOpen={!!isMobileMenuOpen}
-          onClick={this.handleItemClick}
+      <>
+        <Menu
+          anchorEl={this.props.mobileMoreAnchorEl}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          id={this.props.mobileMenuId}
+          keepMounted
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          open={isMobileMenuOpen}
+          name="mobileMoreAnchorEl"
+          onClose={this.props.handleClose}
         >
-          <MenuItem>EN</MenuItem>
-          <MenuItem>TR</MenuItem>
-        </NestedMenuItem>
-        <MenuItem>
-          <p>LOGIN</p>
-        </MenuItem>
-        <NestedMenuItem label="User name" parentMenuOpen={!!isMobileMenuOpen}>
-          <MenuItem>user email</MenuItem>
-          <MenuItem>Log out</MenuItem>
-        </NestedMenuItem>
-      </Menu>
+          <Link to="" className={classes.linkStyle}>
+            <MenuItem onClick={this.props.handleClose}>HOME</MenuItem>
+          </Link>
+
+          <Link to="/contactus" className={classes.linkStyle}>
+            <MenuItem onClick={this.props.handleClose}>CONTACT US</MenuItem>
+          </Link>
+
+          <NestedMenuItem
+            label="EN"
+            parentMenuOpen={!!isMobileMenuOpen}
+            onClick={this.handleItemClick}
+          >
+            <MenuItem>EN</MenuItem>
+            <MenuItem>TR</MenuItem>
+          </NestedMenuItem>
+          <NestedMenuItem label="User name" parentMenuOpen={!!isMobileMenuOpen}>
+            <MenuItem>user email</MenuItem>
+            <MenuItem>Log out</MenuItem>
+          </NestedMenuItem>
+        </Menu>
+      </>
     );
 
     return mobileMenu;
