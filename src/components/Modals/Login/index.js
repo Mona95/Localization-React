@@ -13,24 +13,22 @@ import { connect } from "react-redux";
 import { updateUserInfo } from "../../../actions/actions";
 import { withTranslation } from "react-i18next";
 
-class Login extends Component {
+class LoginModal extends Component {
   state = {
     name: "",
     email: "",
     password: null,
-    modalOpen: false,
     emailError: false,
     emptyFldError: false,
   };
-  handleModalOpen = () => this.setState({ modalOpen: true });
 
-  handleModalClose = () => {
+  beforeModalClose = () => {
     if (!this.state.emailError) {
     }
     if (this.state.name === "") {
       this.setState({ emptyFldError: true });
     } else {
-      this.setState({ modalOpen: false });
+      this.props.handleModalClose();
       let userInfoData = {
         name: this.state.name,
         email: this.state.email,
@@ -54,78 +52,68 @@ class Login extends Component {
     }
   };
 
-  modalClose = () =>
+  modalCancel = () => {
     this.setState({
-      modalOpen: false,
       emailError: false,
       emptyFldError: false,
     });
+    this.props.handleModalClose();
+  };
 
   render() {
     let { classes, t } = this.props;
 
     return (
-      <>
-        <Button
-          size="small"
-          color="inherit"
-          style={{ marginLeft: 15 }}
-          variant="outlined"
-          onClick={this.handleModalOpen}
-        >
+      <Dialog
+        className={classes.modalBody}
+        open={this.props.isModalOpen}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
           {t("Login")}
-        </Button>
-        <Dialog
-          className={classes.modalBody}
-          open={this.state.modalOpen}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">
+          <div className={classes.langSelector}>
+            <LangSelector />
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <Input
+            name="name"
+            placeholder={t("Name")}
+            onChange={this.handleItemChange}
+          />
+          <br />
+          <Input
+            name="email"
+            placeholder={t("Email")}
+            onChange={this.handleItemChange}
+          />
+          <br />
+          <Input
+            name="password"
+            type="password"
+            placeholder={t("Password")}
+            onChange={this.handleItemChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.beforeModalClose} color="primary">
             {t("Login")}
-            <div className={classes.langSelector}>
-              <LangSelector />
-            </div>
-          </DialogTitle>
-          <DialogContent>
-            <Input
-              name="name"
-              placeholder={t("Name")}
-              onChange={this.handleItemChange}
-            />
-            <br />
-            <Input
-              name="email"
-              placeholder={t("Email")}
-              onChange={this.handleItemChange}
-            />
-            <br />
-            <Input
-              name="password"
-              type="password"
-              placeholder={t("Password")}
-              onChange={this.handleItemChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleModalClose} color="primary">
-              {t("Login")}
-            </Button>
-            <Button onClick={this.modalClose} color="primary">
-              {t("Close")}
-            </Button>
-          </DialogActions>
-          {this.state.emailError && (
-            <span className={classes.errMsg}>
-              {t(" Please enter a valid email address")}
-            </span>
-          )}
-          {this.state.emptyFldError && (
-            <span className={classes.errMsg}>
-              {t("Name field can not be empty")}
-            </span>
-          )}
-        </Dialog>
-      </>
+          </Button>
+          <Button onClick={this.modalCancel} color="primary">
+            {t("Close")}
+          </Button>
+        </DialogActions>
+        {this.state.emailError && (
+          <span className={classes.errMsg}>
+            {t("Please enter a valid email address")}
+          </span>
+        )}
+        {this.state.emptyFldError && (
+          <span className={classes.errMsg}>
+            {t("Name field can not be empty")}
+          </span>
+        )}
+      </Dialog>
     );
   }
 }
@@ -137,4 +125,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   null,
   mapDispatchToProps
-)(withStyles(styles)(withTranslation("translations")(Login)));
+)(withStyles(styles)(withTranslation("translations")(LoginModal)));

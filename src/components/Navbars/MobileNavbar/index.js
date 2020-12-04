@@ -8,9 +8,18 @@ import styles from "./MobNavbar.style";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import { updateLanguage } from "../../../actions/actions";
+import LoginModal from "../../Modals/Login";
 import i18n from "../../../i18n";
 
 class MobileNavbar extends Component {
+  state = {
+    isModalOpen: false,
+  };
+
+  handleModalOpen = () => this.setState({ isModalOpen: true });
+
+  handleModalClose = () => this.setState({ isModalOpen: false });
+
   handleLanguageUpdate = (event) => {
     let newLangCode = event.currentTarget.textContent.toLowerCase();
     this.props.updateLanguage(newLangCode);
@@ -52,6 +61,9 @@ class MobileNavbar extends Component {
             <MenuItem onClick={this.handleLanguageUpdate}>EN</MenuItem>
             <MenuItem onClick={this.handleLanguageUpdate}>TR</MenuItem>
           </NestedMenuItem>
+          {!this.props.userInfo && (
+            <MenuItem onClick={this.handleModalOpen}>{t("Login")}</MenuItem>
+          )}
           {this.props.userInfo && (
             <NestedMenuItem
               label={this.props.userInfo && this.props.userInfo.name}
@@ -66,6 +78,11 @@ class MobileNavbar extends Component {
             </NestedMenuItem>
           )}
         </Menu>
+        <LoginModal
+          isModalOpen={this.state.isModalOpen}
+          handleModalOpen={this.handleModalOpen}
+          handleModalClose={this.handleModalClose}
+        />
       </>
     );
 

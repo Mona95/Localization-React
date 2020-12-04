@@ -6,7 +6,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
 import styles from "./DesNavbar.style";
-import LoginModal from "../../Modals/Login";
+import Login from "../../Login";
 import LangSelector from "../../LangSelector";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -33,7 +33,7 @@ class DesktopNavbar extends Component {
           </Button>
         </Link>
         <LangSelector />
-        {!this.props.userInfo && <LoginModal />}
+        {!this.props.userInfo && <Login />}
         {this.props.userInfo && (
           <Button
             color="inherit"
