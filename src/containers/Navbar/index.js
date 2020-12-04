@@ -37,8 +37,8 @@ class Navbar extends Component {
   };
 
   updateTitle = (event) => {
-    let newTitle = event.currentTarget.textContent;
-    newTitle === "HOME" && (newTitle = "Scorp-Sample Case");
+    let newTitle = event.currentTarget.name || event.currentTarget.title;
+    newTitle === "Home" && (newTitle = "Scorp-Sample Case");
     this.props.updatePageTitle(newTitle);
     this.handleClose();
   };
@@ -46,6 +46,12 @@ class Navbar extends Component {
   render() {
     const { classes, t } = this.props;
     const mobileMenuId = "mobile-menu";
+
+    const titles = {
+      "Scorp-Sample Case": t("Scorp-Sample Case"),
+      "Contact Us": t("Contact Us"),
+    };
+
     return (
       <>
         <AppBar position="static">
@@ -60,9 +66,7 @@ class Navbar extends Component {
             </IconButton>
 
             <Typography variant="h6" className={classes.title}>
-              {this.props.pageTitle === "Scorp-Sample Case"
-                ? t("Scorp-Sample Case")
-                : t("Contact US")}
+              {titles[this.props.pageTitle]}
             </Typography>
 
             <div className={classes.sectionDesktop}>
@@ -71,6 +75,7 @@ class Navbar extends Component {
                 handleClose={this.handleClose}
                 handleLogout={this.handleLogout}
                 userBtnAnchorEl={this.state.userBtnAnchorEl}
+                updateTitle={this.updateTitle}
               />
             </div>
 

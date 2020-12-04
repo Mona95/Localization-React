@@ -9,32 +9,23 @@ import styles from "./DesNavbar.style";
 import LoginModal from "../../Modals/Login";
 import LangSelector from "../../LangSelector";
 import { connect } from "react-redux";
-import { updatePageTitle } from "../../../actions/actions";
 import { withTranslation } from "react-i18next";
 
 class DesktopNavbar extends Component {
-  handleLinkClick = (event) => {
-    this.props.updatePageTitle(event.currentTarget.name);
-  };
-
   render() {
     const { classes, t } = this.props;
 
     return (
       <>
         <Link to="" className={classes.linkStyle}>
-          <Button
-            name="Scorp-Sample Case"
-            onClick={this.handleLinkClick}
-            color="inherit"
-          >
+          <Button name="Home" onClick={this.props.updateTitle} color="inherit">
             {t("Home")}
           </Button>
         </Link>
         <Link to="/contactus" className={classes.linkStyle}>
           <Button
-            name="CONTACT US"
-            onClick={this.handleLinkClick}
+            name="Contact Us"
+            onClick={this.props.updateTitle}
             style={{ marginLeft: 30 }}
             color="inherit"
           >
@@ -73,15 +64,10 @@ class DesktopNavbar extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  updatePageTitle: (title) => dispatch(updatePageTitle(title)),
-});
-
 const mapStateToProps = (state) => ({
   userInfo: state.userInfo,
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(withTranslation("translations")(DesktopNavbar)));
+export default connect(mapStateToProps)(
+  withStyles(styles)(withTranslation("translations")(DesktopNavbar))
+);

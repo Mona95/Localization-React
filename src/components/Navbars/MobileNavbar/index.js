@@ -25,11 +25,13 @@ class MobileNavbar extends Component {
           onClose={this.props.handleClose}
         >
           <Link to="" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.updateTitle}>{t("Home")}</MenuItem>
+            <MenuItem title="Home" onClick={this.props.updateTitle}>
+              {t("Home")}
+            </MenuItem>
           </Link>
 
           <Link to="/contactus" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.updateTitle}>
+            <MenuItem title="Contact Us" onClick={this.props.updateTitle}>
               {t("Contact Us")}
             </MenuItem>
           </Link>
