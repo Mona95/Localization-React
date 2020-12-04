@@ -3,6 +3,9 @@ import TranslateIcon from "@material-ui/icons/Translate";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { connect } from "react-redux";
+import { updateLanguage } from "../../actions/actions";
+import i18n from "../../i18n";
 
 class LangSelector extends Component {
   state = {
@@ -17,6 +20,9 @@ class LangSelector extends Component {
     this.setState({
       locAnchorEl: null,
     });
+    let newLangCode = event.currentTarget.textContent.toLowerCase();
+    this.props.updateLanguage(newLangCode);
+    i18n.changeLanguage(newLangCode);
   };
 
   render() {
@@ -31,7 +37,7 @@ class LangSelector extends Component {
           onClick={this.handleClick}
           startIcon={<TranslateIcon />}
         >
-          EN
+          {this.props.language}
         </Button>
         <Menu
           id="simple-menu"
@@ -48,4 +54,12 @@ class LangSelector extends Component {
   }
 }
 
-export default LangSelector;
+const mapDispatchToProps = (dispatch) => ({
+  updateLanguage: (newLangCode) => dispatch(updateLanguage(newLangCode)),
+});
+
+const mapStateToProps = (state) => ({
+  language: state.language,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LangSelector);

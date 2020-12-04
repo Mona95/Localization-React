@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   contentWrapper: {
     padding: "4%",
     textAlign: "center",
@@ -9,6 +7,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   articleP: { textAlign: "left", lineHeight: 2 },
-}));
+});
 
-export default useStyles;
+export default styles;

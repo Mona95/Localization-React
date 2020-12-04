@@ -102,7 +102,7 @@ class ContactForm extends Component {
           multiline={true}
           onChange={this.handleItemChange}
           rows={3}
-          placeholder="Description"
+          placeholder="Text"
         />
         <br />
         <Button
@@ -124,7 +124,7 @@ class ContactForm extends Component {
         {this.state.emailError && (
           <span className={classes.errMsg}>
             <ErrorIcon />
-            Please enter a valid Email.
+            Please enter a valid email address.
           </span>
         )}
       </form>
