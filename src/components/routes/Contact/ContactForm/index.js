@@ -7,17 +7,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { validateNumberFld, validateEmailFld } from "../../../../utils/utils";
 import ErrorIcon from "@material-ui/icons/Error";
 import { connect } from "react-redux";
-
-const country_list = [
-  { id: "TR", name: "Turkey" },
-  { id: "US", name: "United States of America" },
-  { id: "GB", name: "United Kingdom" },
-  { id: "DE", name: "Germany" },
-  { id: "SE", name: "Sweden" },
-  { id: "KE", name: "Kenya" },
-  { id: "BR", name: "Brazil" },
-  { id: "ZW", name: "Zimbabwe" },
-];
+import { withTranslation } from "react-i18next";
 
 class ContactForm extends Component {
   state = {
@@ -63,20 +53,30 @@ class ContactForm extends Component {
   };
 
   render() {
-    let { classes } = this.props;
+    let { classes, t } = this.props;
+    const country_list = [
+      { id: "TR", name: t("Turkey") },
+      { id: "US", name: t("United States of America") },
+      { id: "GB", name: t("United Kingdom") },
+      { id: "DE", name: t("Germany") },
+      { id: "SE", name: t("Sweden") },
+      { id: "KE", name: t("Kenya") },
+      { id: "BR", name: t("Brazil") },
+      { id: "ZW", name: t("Zimbabwe") },
+    ];
     return (
       <form className={classes.form} name="contactus-form" autoComplete="on">
         <Input
           readOnly={Boolean(this.props.userInfo)}
           name="name"
-          placeholder="Name"
+          placeholder={t("Name")}
           onChange={this.handleItemChange}
           value={this.state.name}
         />
         <Input
           readOnly={Boolean(this.props.userInfo)}
           type="email"
-          placeholder="Email"
+          placeholder={t("Email")}
           onChange={this.handleItemChange}
           name="email"
           value={this.state.email}
@@ -84,7 +84,7 @@ class ContactForm extends Component {
         <br />
         <Input
           name="phonenumber"
-          placeholder="Phone Number"
+          placeholder={t("Phone Number")}
           onChange={this.handleItemChange}
         />
         <Autocomplete
@@ -93,7 +93,9 @@ class ContactForm extends Component {
           className={classes.countryFld}
           getOptionLabel={(option) => option.name}
           onChange={this.handleAutoCompleteChange}
-          renderInput={(params) => <TextField {...params} label="Country" />}
+          renderInput={(params) => (
+            <TextField {...params} label={t("Country")} />
+          )}
         />
         <br />
         <Input
@@ -102,7 +104,7 @@ class ContactForm extends Component {
           multiline={true}
           onChange={this.handleItemChange}
           rows={3}
-          placeholder="Text"
+          placeholder={t("Text")}
         />
         <br />
         <Button
@@ -111,20 +113,20 @@ class ContactForm extends Component {
           type="submit"
           onClick={this.onSend}
         >
-          SEND
+          {t("Send")}
         </Button>
         <br />
         {this.state.numberError && (
           <span className={classes.errMsg}>
             <ErrorIcon />
-            Please enter a valid phone number.
+            {t("Please enter a valid phone number")}
           </span>
         )}
         <br />
         {this.state.emailError && (
           <span className={classes.errMsg}>
             <ErrorIcon />
-            Please enter a valid email address.
+            {t("Please enter a valid email address")}
           </span>
         )}
       </form>
@@ -136,4 +138,6 @@ const mapStateToProps = (state) => ({
   userInfo: state.userInfo,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(ContactForm));
+export default connect(mapStateToProps)(
+  withStyles(styles)(withTranslation("translations")(ContactForm))
+);

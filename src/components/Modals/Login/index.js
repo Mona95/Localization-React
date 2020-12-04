@@ -11,6 +11,7 @@ import { validateEmailFld, validateEmptyField } from "../../../utils/utils";
 import LangSelector from "../../LangSelector";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../../actions/actions";
+import { withTranslation } from "react-i18next";
 
 class Login extends Component {
   state = {
@@ -61,7 +62,7 @@ class Login extends Component {
     });
 
   render() {
-    let { classes } = this.props;
+    let { classes, t } = this.props;
 
     return (
       <>
@@ -72,7 +73,7 @@ class Login extends Component {
           variant="outlined"
           onClick={this.handleModalOpen}
         >
-          LOGIN
+          {t("Login")}
         </Button>
         <Dialog
           className={classes.modalBody}
@@ -80,7 +81,7 @@ class Login extends Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            Login
+            {t("Login")}
             <div className={classes.langSelector}>
               <LangSelector />
             </div>
@@ -88,38 +89,40 @@ class Login extends Component {
           <DialogContent>
             <Input
               name="name"
-              placeholder="Name"
+              placeholder={t("Name")}
               onChange={this.handleItemChange}
             />
             <br />
             <Input
               name="email"
-              placeholder="Email"
+              placeholder={t("Email")}
               onChange={this.handleItemChange}
             />
             <br />
             <Input
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder={t("Password")}
               onChange={this.handleItemChange}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleModalClose} color="primary">
-              LOGIN
+              {t("Login")}
             </Button>
             <Button onClick={this.modalClose} color="primary">
-              CLOSE
+              {t("Close")}
             </Button>
           </DialogActions>
           {this.state.emailError && (
             <span className={classes.errMsg}>
-              Please enter a valid email address.
+              {t(" Please enter a valid email address")}
             </span>
           )}
           {this.state.emptyFldError && (
-            <span className={classes.errMsg}>Name field can not be empty.</span>
+            <span className={classes.errMsg}>
+              {t("Name field can not be empty")}
+            </span>
           )}
         </Dialog>
       </>
@@ -131,4 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
 });
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Login));
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(withTranslation("translations")(Login)));

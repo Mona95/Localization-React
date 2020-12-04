@@ -11,6 +11,7 @@ import MobileNavbar from "../../components/Navbars/MobileNavbar";
 import DesktopNavbar from "../../components/Navbars/DesktopNavbar";
 import { connect } from "react-redux";
 import { updateUserInfo, updatePageTitle } from "../../actions/actions";
+import { withTranslation } from "react-i18next";
 
 class Navbar extends Component {
   state = {
@@ -43,7 +44,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const mobileMenuId = "mobile-menu";
     return (
       <>
@@ -59,7 +60,9 @@ class Navbar extends Component {
             </IconButton>
 
             <Typography variant="h6" className={classes.title}>
-              {this.props.pageTitle}
+              {this.props.pageTitle === "Scorp-Sample Case"
+                ? t("Scorp-Sample Case")
+                : t("Contact US")}
             </Typography>
 
             <div className={classes.sectionDesktop}>
@@ -110,4 +113,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Navbar));
+)(withStyles(styles)(withTranslation("translations")(Navbar)));

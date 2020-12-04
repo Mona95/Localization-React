@@ -6,10 +6,11 @@ import NestedMenuItem from "material-ui-nested-menu-item";
 import { Link } from "react-router-dom";
 import styles from "./MobNavbar.style";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 
 class MobileNavbar extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const isMobileMenuOpen = Boolean(this.props.mobileMoreAnchorEl);
     const mobileMenu = (
       <>
@@ -24,15 +25,17 @@ class MobileNavbar extends Component {
           onClose={this.props.handleClose}
         >
           <Link to="" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.updateTitle}>HOME</MenuItem>
+            <MenuItem onClick={this.props.updateTitle}>{t("Home")}</MenuItem>
           </Link>
 
           <Link to="/contactus" className={classes.linkStyle}>
-            <MenuItem onClick={this.props.updateTitle}>CONTACT US</MenuItem>
+            <MenuItem onClick={this.props.updateTitle}>
+              {t("Contact Us")}
+            </MenuItem>
           </Link>
 
           <NestedMenuItem
-            label="EN"
+            label={this.props.language.toUpperCase()}
             parentMenuOpen={!!isMobileMenuOpen}
             onClick={this.handleItemClick}
           >
@@ -47,7 +50,9 @@ class MobileNavbar extends Component {
               <MenuItem>
                 {this.props.userInfo && this.props.userInfo.email}
               </MenuItem>
-              <MenuItem onClick={this.props.handleLogout}>Log out</MenuItem>
+              <MenuItem onClick={this.props.handleLogout}>
+                {t("Logout")}
+              </MenuItem>
             </NestedMenuItem>
           )}
         </Menu>
@@ -60,6 +65,9 @@ class MobileNavbar extends Component {
 
 const mapStateToProps = (state) => ({
   userInfo: state.userInfo,
+  language: state.language,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(MobileNavbar));
+export default connect(mapStateToProps)(
+  withStyles(styles)(withTranslation("translations")(MobileNavbar))
+);
