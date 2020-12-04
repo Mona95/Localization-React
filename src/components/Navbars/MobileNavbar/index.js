@@ -7,8 +7,16 @@ import { Link } from "react-router-dom";
 import styles from "./MobNavbar.style";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
+import { updateLanguage } from "../../../actions/actions";
+import i18n from "../../../i18n";
 
 class MobileNavbar extends Component {
+  handleLanguageUpdate = (event) => {
+    let newLangCode = event.currentTarget.textContent.toLowerCase();
+    this.props.updateLanguage(newLangCode);
+    i18n.changeLanguage(newLangCode);
+  };
+
   render() {
     const { classes, t } = this.props;
     const isMobileMenuOpen = Boolean(this.props.mobileMoreAnchorEl);
@@ -41,8 +49,8 @@ class MobileNavbar extends Component {
             parentMenuOpen={!!isMobileMenuOpen}
             onClick={this.handleItemClick}
           >
-            <MenuItem>EN</MenuItem>
-            <MenuItem>TR</MenuItem>
+            <MenuItem onClick={this.handleLanguageUpdate}>EN</MenuItem>
+            <MenuItem onClick={this.handleLanguageUpdate}>TR</MenuItem>
           </NestedMenuItem>
           {this.props.userInfo && (
             <NestedMenuItem
@@ -65,11 +73,16 @@ class MobileNavbar extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  updateLanguage: (newLangCode) => dispatch(updateLanguage(newLangCode)),
+});
+
 const mapStateToProps = (state) => ({
   userInfo: state.userInfo,
   language: state.language,
 });
 
-export default connect(mapStateToProps)(
-  withStyles(styles)(withTranslation("translations")(MobileNavbar))
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(withTranslation("translations")(MobileNavbar)));
