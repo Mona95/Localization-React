@@ -73,12 +73,10 @@ class MobileNavbar extends Component {
           )}
           {this.props.userInfo && (
             <NestedMenuItem
-              label={this.props.userInfo && this.props.userInfo.name}
+              label={this.props.userInfo?.name}
               parentMenuOpen={!!isMobileMenuOpen}
             >
-              <MenuItem>
-                {this.props.userInfo && this.props.userInfo.email}
-              </MenuItem>
+              <MenuItem>{this.props.userInfo?.email}</MenuItem>
               <MenuItem onClick={this.props.handleLogout}>
                 {t("Logout")}
               </MenuItem>

@@ -25,6 +25,9 @@ class ContactForm extends Component {
     emailError: false,
   };
 
+  //checking validation of email/phone number field while typing inside,
+  //if no value exists, validation won't start and it won't be an error
+  //so these fields are not required but while typing,they should be valid
   handleItemChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "email") {

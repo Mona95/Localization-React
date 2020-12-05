@@ -52,7 +52,7 @@ class DesktopNavbar extends Component {
             onClick={this.props.handleClick}
             startIcon={<PersonIcon />}
           >
-            {this.props.userInfo && this.props.userInfo.name}
+            {this.props.userInfo?.name}
           </Button>
         )}
         <Menu
@@ -63,7 +63,7 @@ class DesktopNavbar extends Component {
           onClose={this.props.handleClose}
         >
           <MenuItem onClick={this.props.handleClose}>
-            {this.props.userInfo && this.props.userInfo.email}
+            {this.props.userInfo?.email}
           </MenuItem>
           <MenuItem onClick={this.props.handleLogout}>{t("Logout")}</MenuItem>
         </Menu>
