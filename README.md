@@ -6,6 +6,8 @@
 - Run `npm install` to install all the dependencies.
 - Run `npm start` to start the project.
 
+[Check Demo here](https://dazzling-meninsky-de540e.netlify.app/)
+
 <hr>
 
 ### Main Folder Structure
