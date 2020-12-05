@@ -16,8 +16,8 @@ import { withTranslation } from "react-i18next";
 
 class ContactForm extends Component {
   state = {
-    name: this.props.userInfo?.name,
-    email: this.props.userInfo?.email,
+    name: this.props.userInfo?.name || "",
+    email: this.props.userInfo?.email || "",
     phonenumber: "",
     country_code: "",
     text: "",
@@ -116,7 +116,7 @@ class ContactForm extends Component {
           name="country_code"
           options={country_list}
           className={classes.countryFld}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => t(option.name)}
           onChange={this.handleAutoCompleteChange}
           renderInput={(params) => (
             <TextField {...params} label={t("Country")} />
