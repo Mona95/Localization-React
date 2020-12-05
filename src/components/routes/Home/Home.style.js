@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 2,
     [theme.breakpoints.down("sm")]: {
       height: 330,
-      overflow: "scroll",
+      overflowY: "scroll",
     },
   },
 }));
