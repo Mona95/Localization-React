@@ -11,8 +11,8 @@ import { withTranslation } from "react-i18next";
 
 class ContactForm extends Component {
   state = {
-    name: this.props.userInfo ? this.props.userInfo.name : "",
-    email: this.props.userInfo ? this.props.userInfo.email : "",
+    name: this.props.userInfo?.name,
+    email: this.props.userInfo?.email,
     phonenumber: "",
     country_code: "",
     text: "",
@@ -52,8 +52,18 @@ class ContactForm extends Component {
     }
   };
 
+  componentWillReceiveProps = (nextProps, prevProps) => {
+    this.setState((previousState) => {
+      return {
+        name: nextProps.userInfo?.name || "",
+        email: nextProps.userInfo?.email || "",
+      };
+    });
+  };
+
   render() {
     let { classes, t } = this.props;
+
     const country_list = [
       { id: "TR", name: t("Turkey") },
       { id: "US", name: t("United States of America") },
@@ -64,6 +74,7 @@ class ContactForm extends Component {
       { id: "BR", name: t("Brazil") },
       { id: "ZW", name: t("Zimbabwe") },
     ];
+
     return (
       <form className={classes.form} name="contactus-form" autoComplete="on">
         <Input

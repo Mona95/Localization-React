@@ -28,13 +28,13 @@ class LoginModal extends Component {
     if (this.state.name === "") {
       this.setState({ emptyFldError: true });
     } else {
-      this.props.handleModalClose();
       let userInfoData = {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
       };
       this.props.updateUserInfo(userInfoData);
+      this.props.handleModalClose();
     }
   };
 
