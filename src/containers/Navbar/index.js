@@ -22,7 +22,7 @@ class Navbar extends Component {
   state = {
     userBtnAnchorEl: null,
     mobileMoreAnchorEl: null,
-    isMobileMenuOpen: false,
+    isMobileMenuOpen: false, //updating the state of mobileMenu by clicking on moreicon
   };
 
   handleClick = (event) => {
@@ -89,7 +89,7 @@ class Navbar extends Component {
             {/** render more icon if screen size is smaller than medium to display mobile navigation menu */}
             <div className={classes.sectionMobile}>
               <IconButton
-                aria-label="show more"
+                aria-label="more-icon"
                 aria-controls={mobileMenuId}
                 aria-haspopup="true"
                 name="mobileMoreAnchorEl"
