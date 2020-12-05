@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     lineHeight: 2,
     [theme.breakpoints.down("sm")]: {
-      height: 300,
+      height: 330,
       overflow: "scroll",
     },
   },

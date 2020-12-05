@@ -73,6 +73,7 @@ class ContactForm extends Component {
           onChange={this.handleItemChange}
           value={this.state.name}
         />
+        <br />
         <Input
           readOnly={Boolean(this.props.userInfo)}
           type="email"
@@ -83,6 +84,7 @@ class ContactForm extends Component {
         />
         <br />
         <Input
+          fullWidth={true}
           name="phonenumber"
           placeholder={t("Phone Number")}
           onChange={this.handleItemChange}
@@ -99,7 +101,7 @@ class ContactForm extends Component {
         />
         <br />
         <Input
-          style={{ width: "41%" }}
+          className={classes.textareaFld}
           name="text"
           multiline={true}
           onChange={this.handleItemChange}
