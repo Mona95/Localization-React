@@ -1,11 +1,14 @@
+//importing actionTypes all together
 import * as actionTypes from "../actions/actionsTypes";
 
+//initializing the state
 const initialState = {
-  language: "en",
-  userInfo: null,
-  pageTitle: "Scorp-Sample Case",
+  language: "en", //default selected language
+  userInfo: null, //`null` as the initialized value
+  pageTitle: "Scorp-Sample Case", //to be used for updating page title
 };
 
+//generating reducer based on state and actions
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_USER_INFO:

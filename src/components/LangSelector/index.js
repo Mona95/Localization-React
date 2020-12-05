@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+//Material-UI components
 import TranslateIcon from "@material-ui/icons/Translate";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+//redux and actions
 import { connect } from "react-redux";
 import { updateLanguage } from "../../actions/actions";
+//Translation file to handle updating language
 import i18n from "../../i18n";
 
 class LangSelector extends Component {
@@ -16,6 +19,7 @@ class LangSelector extends Component {
     this.setState({ [event.currentTarget.name]: event.currentTarget });
   };
 
+  //Closing the langSelector menu and updating the app-wide state.language
   handleClose = (event) => {
     this.setState({
       locAnchorEl: null,

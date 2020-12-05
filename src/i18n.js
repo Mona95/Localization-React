@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import XHR from "i18next-xhr-backend";
-
+//importing translation related files
 import translationEng from "./locales/en/translation.json";
 import translationTr from "./locales/tr/translation.json";
 
@@ -11,7 +11,7 @@ i18n
   .init({
     debug: true,
     lng: "en",
-    fallbackLng: "en", // use en if detected lng is not available
+    fallbackLng: "en", // to be used as default language
 
     keySeparator: false,
     interpolation: {

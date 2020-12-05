@@ -1,6 +1,9 @@
 import React from "react";
-import Navbar from "../../../containers/Navbar";
+//styles
 import useStyles from "./Home.style.js";
+//Components
+import Navbar from "../../../containers/Navbar";
+//Translations
 import { useTranslation } from "react-i18next";
 
 export default function Home() {

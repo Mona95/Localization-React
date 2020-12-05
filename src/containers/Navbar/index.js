@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+//Styles
 import styles from "./Navbar.style.js";
+//Material-UI components
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import RedeemIcon from "@material-ui/icons/Redeem";
 import MoreIcon from "@material-ui/icons/MoreVert";
+//Components
 import MobileNavbar from "../../components/Navbars/MobileNavbar";
 import DesktopNavbar from "../../components/Navbars/DesktopNavbar";
+//redux and actions
 import { connect } from "react-redux";
 import { updateUserInfo, updatePageTitle } from "../../actions/actions";
+//translations
 import { withTranslation } from "react-i18next";
 
 class Navbar extends Component {
@@ -47,6 +52,7 @@ class Navbar extends Component {
     const { classes, t } = this.props;
     const mobileMenuId = "mobile-menu";
 
+    //to hold the possible titles of page with their translated value
     const titles = {
       "Scorp-Sample Case": t("Scorp-Sample Case"),
       "Contact Us": t("Contact Us"),
@@ -69,6 +75,7 @@ class Navbar extends Component {
               {titles[this.props.pageTitle]}
             </Typography>
 
+            {/** render desktop navigation if screen size is larger than medium */}
             <div className={classes.sectionDesktop}>
               <DesktopNavbar
                 handleClick={this.handleClick}
@@ -79,6 +86,7 @@ class Navbar extends Component {
               />
             </div>
 
+            {/** render more icon if screen size is smaller than medium to display mobile navigation menu */}
             <div className={classes.sectionMobile}>
               <IconButton
                 aria-label="show more"
@@ -94,6 +102,7 @@ class Navbar extends Component {
           </Toolbar>
         </AppBar>
 
+        {/** render mobile navigation if screen size is smaller than medium */}
         <MobileNavbar
           mobileMenuId={mobileMenuId}
           mobileMoreAnchorEl={this.state.mobileMoreAnchorEl}

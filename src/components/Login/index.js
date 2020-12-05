@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+//Material-UI components
 import Button from "@material-ui/core/Button";
-import { withTranslation } from "react-i18next";
+//Components
 import LoginModal from "../Modals/Login";
+//Translations
+import { withTranslation } from "react-i18next";
 
 class Login extends Component {
   state = {

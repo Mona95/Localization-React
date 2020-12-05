@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+//styles
 import { withStyles } from "@material-ui/core/styles";
+import styles from "./MobNavbar.style";
+//Material-UI components
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import NestedMenuItem from "material-ui-nested-menu-item";
+//React router components
 import { Link } from "react-router-dom";
-import styles from "./MobNavbar.style";
+//redux and actions
 import { connect } from "react-redux";
-import { withTranslation } from "react-i18next";
 import { updateLanguage } from "../../../actions/actions";
+//Components
 import LoginModal from "../../Modals/Login";
+//Translations
+import { withTranslation } from "react-i18next";
 import i18n from "../../../i18n";
 
 class MobileNavbar extends Component {
@@ -20,6 +26,7 @@ class MobileNavbar extends Component {
 
   handleModalClose = () => this.setState({ isModalOpen: false });
 
+  //handling language update(and state.language) based on user selection
   handleLanguageUpdate = (event) => {
     let newLangCode = event.currentTarget.textContent.toLowerCase();
     this.props.updateLanguage(newLangCode);

@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+//styles
 import { withStyles } from "@material-ui/core/styles";
+import styles from "./DesNavbar.style";
+//Material-UI components
 import PersonIcon from "@material-ui/icons/Person";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+//React router components
 import { Link } from "react-router-dom";
-import styles from "./DesNavbar.style";
+//Components
 import Login from "../../Login";
 import LangSelector from "../../LangSelector";
+//redux
 import { connect } from "react-redux";
+//translations
 import { withTranslation } from "react-i18next";
 
 class DesktopNavbar extends Component {
@@ -33,7 +39,9 @@ class DesktopNavbar extends Component {
           </Button>
         </Link>
         <LangSelector />
+        {/** if userInfo doesn't exist, Display Login button */}
         {!this.props.userInfo && <Login />}
+        {/** if userInfo exist, hide login button and display userName button with menu*/}
         {this.props.userInfo && (
           <Button
             color="inherit"

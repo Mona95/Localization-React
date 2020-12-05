@@ -1,11 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+//Styles
 import "./index.css";
+//Components
 import App from "./containers/App/App";
+//redux provider & store
 import { Provider } from "react-redux";
+import store from "./store";
+//Localization
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
-import store from "./store";
+
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(

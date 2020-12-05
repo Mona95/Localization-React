@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+//styles
 import styles from "./ContactForm.style.js";
-import { Button, Input } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+//Material-UI components
+import { Button, Input } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { validateNumberFld, validateEmailFld } from "../../../../utils/utils";
 import ErrorIcon from "@material-ui/icons/Error";
+//helper methods
+import { validateNumberFld, validateEmailFld } from "../../../../utils/utils";
+//redux
 import { connect } from "react-redux";
+//Translations
 import { withTranslation } from "react-i18next";
 
 class ContactForm extends Component {
@@ -42,16 +47,19 @@ class ContactForm extends Component {
 
   onSend = (event) => {
     event.preventDefault();
+    //not mutating the original state
     let currState = { ...this.state };
     delete currState.emailError;
     delete currState.numberError;
     let jsonData = JSON.stringify(currState);
 
+    //if no error, console.log() the current data in contactForm
     if (!this.state.emailError && !this.state.numberError) {
       console.log(jsonData);
     }
   };
 
+  //tp update the state of component based on received props
   componentWillReceiveProps = (nextProps, prevProps) => {
     this.setState((previousState) => {
       return {
@@ -64,6 +72,7 @@ class ContactForm extends Component {
   render() {
     let { classes, t } = this.props;
 
+    //Define list of the countries which will be used in country searchField
     const country_list = [
       { id: "TR", name: t("Turkey") },
       { id: "US", name: t("United States of America") },

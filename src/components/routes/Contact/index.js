@@ -1,7 +1,10 @@
 import React from "react";
-import Navbar from "../../../containers/Navbar";
+//styles
 import useStyles from "./Contact.style.js";
+//Components
+import Navbar from "../../../containers/Navbar";
 import ContactForm from "./ContactForm";
+//Translations
 import { useTranslation } from "react-i18next";
 
 export default function Contact() {
