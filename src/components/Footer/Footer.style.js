@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     background: "#d1c3b2",
     textAlign: "center",
+    overflow: "hidden",
   },
   footerText: { marginTop: 35 },
 }));

@@ -8,7 +8,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: "bold",
   },
-  articleP: { textAlign: "left", lineHeight: 2 },
+  articleP: {
+    textAlign: "left",
+    lineHeight: 2,
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      overflow: "scroll",
+    },
+  },
 }));
 
 export default useStyles;
